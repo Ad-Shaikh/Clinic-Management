@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}{% include 'includes/nav.html' %} {% block content%}
+<section id="viewapp">
+  <div class="outer-container">
+
+    <div class="container-view">
+      <form action="" method="GET">
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Name:&nbsp;{{ pat.pname }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Phone:&nbsp;{{pat.phone}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Blood Group:&nbsp;{{ pat.bgroup }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Previous Complaints:&nbsp;{{pat.complaint}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Improvement:&nbsp;{{ pat.improvement }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for=""
+                >Medicine Suggested:&nbsp;{{pat.medicine_suggested}}</label
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</section>
+{% endblock content%}
