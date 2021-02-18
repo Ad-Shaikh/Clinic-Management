@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}{% include 'includes/nav.html' %} {% block content%}
 
-<div class="container">
+<div class="container mt-5">
   <form action="" method="POST">
     <div class="row">
       <div class="col-6">
@@ -58,8 +58,11 @@
         <input name="time" type="time" />
       </div>
     </div>
-    <div class="row">
-      <button class="btn" type="submit">Add Appointment</button>
+    <div
+      class="row mt-4 justify-content-center"
+      style="border: 1px solid black"
+    >
+      <button class="btn addapp-btn" type="submit">Add Appointment</button>
     </div>
   </form>
 </div>

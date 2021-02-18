@@ -60,8 +60,7 @@ class Doctor(db.Model):
 class Appointments(db.Model):
   __tablename__ = 'Appointments'
   id = db.Column(db.Integer, primary_key=True)
-  doctor_id = db.Column(db.Integer, db.ForeignKey(Doctor.id))
-  patient_id = db.Column(db.Integer, db.ForeignKey(Patient.id))
+  pname=db.Column(db.String(100))
   examinedby = db.Column(db.String(100))
   complaint = db.Column(db.String(5000))
   medicine_suggested = db.Column(db.String(5000))
@@ -69,7 +68,7 @@ class Appointments(db.Model):
   date= db.Column(db.String(50))
   time= db.Column(db.String(50))
   def __repr__(self) -> str:
-    return f"Appointments('{self.id}','{self.doctor_id}','{self.patient_id}','{self.examinedby}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.date}', '{self.time}' )"
+    return f"Appointments('{self.id}','{self.pname}','{self.examinedby}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.date}', '{self.time}' )"
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -385,6 +384,8 @@ def addappointment(id):
     addapp = Patient.query.filter_by(id=id).first()
     docdetail= Doctor.query.all()
     if request.method=='POST':
+      pat=Patient.query.filter_by(id=id).first()
+      pname=pat.pname
       examinedby=request.form['examinedby']
       complaint=request.form['complaint']
       improvements=request.form['improvements']
@@ -392,7 +393,7 @@ def addappointment(id):
       date=request.form['date']
       time=request.form['time']
 
-      appointment= Appointments(examinedby=examinedby, complaint=complaint,improvements=improvements, medicine_suggested=medicine_suggested, date=date, time=time)
+      appointment= Appointments(pname=pname,examinedby=examinedby, complaint=complaint,improvements=improvements, medicine_suggested=medicine_suggested, date=date, time=time)
       db.session.add(appointment)
       db.session.commit()
 
@@ -408,8 +409,24 @@ def addappointment(id):
 def viewapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
-    appointment= Appointments.query.filter_by(id=id).all()
+    pname=pat.pname
+    appointment= Appointments.query.filter_by(pname=pname).all()
     if request.method=='GET':
       return render_template('viewapp.html',appointment=appointment, pat=pat )
 
     return render_template('viewapp.html',appointment=appointment, pat=pat)
+
+@app.route('/deleteapp/<id>', methods=['POST', 'GET'])
+def deleteapp(id):
+  if 'username' in session:
+    delpat = Appointments.query.filter_by(id = id).delete()
+    db.session.commit()
+
+    if delpat == None:
+      flash('Something Went Wrong')
+      return redirect( url_for('viewapp') )
+    else:
+      flash('Patient deletion initiated successfully')
+      return redirect( url_for('viewapp/<id>') )
+
+  return render_template('viewapp.html')

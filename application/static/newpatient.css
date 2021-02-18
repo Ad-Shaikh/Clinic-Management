@@ -49,7 +49,7 @@ input {
   width: 120px;
 }
 
-.text1 {
+textarea {
   vertical-align: top;
   width: 100%;
 }
