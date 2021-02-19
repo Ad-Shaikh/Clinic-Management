@@ -4,67 +4,27 @@
   align-items: center;
 }
 
-.form1 {
-  height: 830px;
+.form-newpat {
+  height: 800px;
   width: 500px;
-  font-size: 20px;
-  color: #0c2461;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2%;
-  background: white;
-  border-radius: 7px;
-  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
+  margin-top: 4%;
 }
-.form1 h1 {
-  margin-bottom: 10% !important;
+
+.form-editpat {
+  height: 900px;
+  width: 500px;
+  margin-top: 4%;
+}
+
+.form-editpat h1 {
+  margin-bottom: 8% !important;
   font-size: 30px;
 }
-.inner-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+
+.inner-newpat {
   height: 700px;
-  width: 350px;
-}
-.form-input {
-  width: 350px;
 }
 
-h1,
-h2,
-h3 {
-  color: #0c2461;
-}
-
-label {
-  color: #0c2461;
-}
-
-textarea {
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  resize: none;
-}
-
-textarea:focus {
-  outline: none;
-  box-shadow: 2px 2px 3px rgba(12, 36, 97, 0.8);
-  transform: translateZ(2px);
-}
-
-input {
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-}
-input:focus {
-  outline: none;
-  box-shadow: 2px 2px 3px rgba(12, 36, 97, 0.8);
-  transform: translateZ(2px);
-}
 .gender {
   display: flex;
   justify-content: space-between;
@@ -75,11 +35,6 @@ input:focus {
   align-items: center;
   justify-content: flex-start;
   width: 120px;
-}
-
-textarea {
-  vertical-align: top;
-  width: 100%;
 }
 
 .btn-submit {
@@ -106,6 +61,3 @@ textarea {
   height: 50px;
   text-align: center;
 }
-/* div {
-  border: 1px solid black;
-} */

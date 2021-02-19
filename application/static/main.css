@@ -2,7 +2,7 @@
 
 body {
   background: #c7ecee;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   background-size: cover;
   background-position: center;
@@ -29,9 +29,7 @@ body {
   border-radius: 7px;
   box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
 }
-/* div {
-  border: 1px solid black;
-} */
+
 .form {
   padding: 20px 0;
   width: auto;

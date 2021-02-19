@@ -311,6 +311,7 @@ def adddoctor():
       db.session.add(doctor)
       db.session.commit()
       flash("Doctor added successfully",'success')
+      return redirect(url_for('alldoctor'))
       
 
   return render_template('adddoctor.html')
