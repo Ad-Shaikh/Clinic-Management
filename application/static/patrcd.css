@@ -3,7 +3,10 @@ body {
 }
 
 table {
-  border-collapse: separate;
+  border-collapse: collapse;
+}
+.table-bordered {
+  border: 1px solid black;
 }
 
 tr td:first-child:before {
@@ -11,8 +14,17 @@ tr td:first-child:before {
   content: counter(Serial);
 }
 
+td {
+  color: #0c2461;
+}
+
 table {
   margin-top: 50px;
+  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
+}
+
+table:hover {
+  background-color: white;
 }
 .container {
   display: flex;
@@ -37,6 +49,11 @@ table {
 .thead {
   background: #0c2461;
   color: white;
+}
+table,
+thead,
+td {
+  border-color: black;
 }
 /* div {
   border: 1px solid black;

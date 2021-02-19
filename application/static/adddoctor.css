@@ -4,12 +4,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 .adddoc-inner {
-  height: 500px;
-  width: 750px;
+  height: 450px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
 }
+
+.adddoc-form {
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.adddoc-form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.adddoc-form form div label {
+  font-size: 18px;
+}
+/* div {
+  border: 1px solid black;
+} */

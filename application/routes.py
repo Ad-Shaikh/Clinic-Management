@@ -95,7 +95,7 @@ def login():
 
     elif username == usr.username and password == usr.password:
       session['username'] = username  # saving session for login
-      return redirect( url_for('home') )
+      return redirect(url_for('home') )
 
     else:
       flash('Wrong Credentials. Check Username and Password Again', category="error")
@@ -412,21 +412,23 @@ def viewapp(id):
     pname=pat.pname
     appointment= Appointments.query.filter_by(pname=pname).all()
     if request.method=='GET':
-      return render_template('viewapp.html',appointment=appointment, pat=pat )
+      return render_template('viewapp.html',appointment=appointment, pat=pat)
 
     return render_template('viewapp.html',appointment=appointment, pat=pat)
 
 @app.route('/deleteapp/<id>', methods=['POST', 'GET'])
 def deleteapp(id):
   if 'username' in session:
-    delpat = Appointments.query.filter_by(id = id).delete()
+    pat=Patient.query.filter_by(id=id).first()
+    pname=pat.pname
+    delpat = Appointments.query.filter_by(id=id).delete()
     db.session.commit()
 
     if delpat == None:
       flash('Something Went Wrong')
-      return redirect( url_for('viewapp') )
+      return redirect(url_for('appointment'))
     else:
       flash('Patient deletion initiated successfully')
-      return redirect( url_for('viewapp/<id>') )
+      return redirect(url_for('appointment'))
 
-  return render_template('viewapp.html')
+  return render_template('viewapp.html/<id>')
