@@ -14,13 +14,17 @@
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
-  {% with messages = get_flashed_messages(with_categories=true) %} {% if
-  messages %} {% for category,msg in messages %}
-  <small class="alert alert-small alert-{{ category }}">{{ msg }}</small>
-  {% endfor %} {% endif %} {% endwith%}
+  <div class="mt-5 text-center">
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
+    messages %}
+    <small class="text-success border border-success text-align-center"
+      >{{ msg }}</small
+    >
+    {% endfor %} {% endif %} {% endwith%}
+  </div>
+  {% if patient %}
   <div class="table table-bordered table-hover">
-    {% if patient %}
-    <table border="2" cellpadding="5px">
+    <table class="table" cellpadding="5px">
       <thead class="thead">
         <tr>
           <th scope="col">Sr.No</th>
@@ -62,7 +66,7 @@
       </tr>
       {% endfor %}
     </table>
-    {% endif %}
   </div>
+  {% endif %}
 </div>
 {% endblock content %}

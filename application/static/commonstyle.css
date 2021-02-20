@@ -53,6 +53,7 @@ input:focus {
 .form-input {
   width: 100%;
 }
-/* div {
-  border: 1px solid black;
-} */
+
+small {
+  font-size: 15px;
+}

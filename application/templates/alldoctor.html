@@ -1,15 +1,17 @@
 {% extends 'layout.html' %}{% include "includes/nav.html" %}{% block content%}
 
 <div class="alldoc-container">
-  {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
-  messages %}
-  <small class="text-success border border-success text-align-center"
-    >{{ msg }}</small
-  >
-  {% endfor %} {% endif %} {% endwith%}
+  <div class="mt-5">
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
+    messages %}
+    <small class="text-success border border-success text-align-center"
+      >{{ msg }}</small
+    >
+    {% endfor %} {% endif %} {% endwith%}
+  </div>
   <div class="table alldoc-table table-bordered table-hover table-responsive">
     {% if alldoctor %}
-    <table border="2" cellpadding="5px">
+    <table class="table" cellpadding="5px">
       <thead class="thead">
         <tr>
           <th scope="col">Sr.No</th>
