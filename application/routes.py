@@ -7,13 +7,14 @@ from werkzeug.utils import secure_filename
 from application import app, db, login_manager
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, ForeignKey, func, delete, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, func, delete, DateTime,desc, and_
 from sqlalchemy.orm import query, sessionmaker, relationship
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
 import re
 import sqlite3
+
 
 
 class Userstore(db.Model):
@@ -67,6 +68,7 @@ class Appointments(db.Model):
   improvements = db.Column(db.String(5000))
   date= db.Column(db.String(50))
   time= db.Column(db.String(50))
+
   def __repr__(self) -> str:
     return f"Appointments('{self.id}','{self.pname}','{self.examinedby}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.date}', '{self.time}' )"
     
@@ -108,6 +110,12 @@ def logout():
   flash('Logged out Successfully','success')
   return redirect( url_for('login') )
 
+@app.route('/popup')
+def popup():
+  # session.pop('username', None)
+  # flash('Logged out Successfully','success')
+  return render_template('includes/popup.html')
+
 
 @app.route('/editaccount/<id>', methods=['GET', 'POST'])
 def editaccount(id):
@@ -126,6 +134,8 @@ def editaccount(id):
       return render_template('updateaccount.html', editaccount = editaccount)
 
     return render_template('updateaccount.html', editaccount = editaccount)
+  else:
+    return redirect(url_for('login'))
 
 
 @app.route('/newpatient', methods=['GET', 'POST'])
@@ -148,14 +158,17 @@ def newpatient():
       db.session.add(patient)
       db.session.commit()
       flash('Patient Added Successfully')
-      return redirect( url_for('newpatient') )
+      return redirect( url_for('patientrecord') )
       
-      
+    return render_template("newpatient.html")
   else:
     flash('You are Logged out. Please login again to continue')
     return redirect( url_for('login') )
 
-  return render_template("newpatient.html")
+  
+
+
+
 
 
 @app.route('/patientrecord', methods = ['GET','POST'])
@@ -345,17 +358,17 @@ def viewapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
     pname=pat.pname
-    appointment= Appointments.query.filter_by(pname=pname).all()
+    appointment= Appointments.query.filter_by(pname=pname).order_by(Appointments.date).all()
+    # app=order_by(desc(appointment))
     if request.method=='GET':
       return render_template('viewapp.html',appointment=appointment, pat=pat)
 
-    return render_template('viewapp.html',appointment=appointment, pat=pat)
+    return render_template('viewapp.html',appointment=appointment, pat=pat, app=app)
 
 @app.route('/deleteapp/<id>', methods=['POST', 'GET'])
 def deleteapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
-    pname=pat.pname
     delpat = Appointments.query.filter_by(id=id).delete()
     db.session.commit()
 
@@ -363,7 +376,18 @@ def deleteapp(id):
       flash('Something Went Wrong')
       return redirect(url_for('appointment'))
     else:
-      flash('Patient deletion initiated successfully')
+      flash('Appointment Deleted Successfully')
       return redirect(url_for('appointment'))
 
   return render_template('viewapp.html/<id>')
+
+@app.route('/allapp', methods=['POST', 'GET'])
+def allapp():
+  if 'username' in session:
+    today= datetime.date.today()
+    seven_days_ago = datetime.date.today() - timedelta(days = 7)
+    allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).all()
+    # allapp= Appointments.query.order_by(Appointments.date).all()
+    return render_template('allappointment.html', allapp=allapp)
+  
+  # return render_template('allappointments.html', allapp=allapp)
