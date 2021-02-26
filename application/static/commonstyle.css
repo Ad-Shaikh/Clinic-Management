@@ -7,8 +7,19 @@ h3 {
   color: #0c2461;
 }
 
+ul {
+  list-style: none;
+}
 label {
   color: #0c2461;
+}
+
+body {
+  background: #c7ecee;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  font-family: "Dosis", sans-serif;
 }
 
 textarea {

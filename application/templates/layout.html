@@ -69,6 +69,18 @@
       rel="stylesheet"
       href="{{ url_for('static', filename = 'popup.css')}}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename = 'footer.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename = 'home.css')}}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Orbitron"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -87,7 +99,8 @@
         </button>
       </div>
     </div>
-    {% endblock popup %} {% block content %} {% endblock content %}
+    {% endblock popup %} {% block content %} {% endblock content %} {% block
+    footer %} {% endblock footer %}
   </body>
   <script
     src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

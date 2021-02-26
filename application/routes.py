@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 from sqlalchemy.sql.expression import update
-from sqlalchemy.sql.functions import user
+from sqlalchemy.sql.functions import count, user
 from werkzeug.utils import secure_filename
 from application import app, db, login_manager
 from flask import render_template, request, session, redirect, url_for, flash
@@ -78,7 +78,18 @@ def load_user(user_id):
 
 @app.route('/home')
 def home():
-  return render_template('home.html')
+  pat=db.session.query(Patient).count()
+  app=db.session.query(Appointments).count()
+  today= datetime.date.today()
+  seven_days_ago = datetime.date.today() - timedelta(days = 7)
+  allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).all()
+  count=0
+  for i in allapp:
+    print(i)
+    count+=1
+
+
+  return render_template('home.html', pat=pat, app=app, count=count)
   
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -109,13 +120,6 @@ def logout():
   session.pop('username', None)
   flash('Logged out Successfully','success')
   return redirect( url_for('login') )
-
-@app.route('/popup')
-def popup():
-  # session.pop('username', None)
-  # flash('Logged out Successfully','success')
-  return render_template('includes/popup.html')
-
 
 @app.route('/editaccount/<id>', methods=['GET', 'POST'])
 def editaccount(id):
@@ -387,7 +391,6 @@ def allapp():
     today= datetime.date.today()
     seven_days_ago = datetime.date.today() - timedelta(days = 7)
     allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).all()
-    # allapp= Appointments.query.order_by(Appointments.date).all()
     return render_template('allappointment.html', allapp=allapp)
   
   # return render_template('allappointments.html', allapp=allapp)
