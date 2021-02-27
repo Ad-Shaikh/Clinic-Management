@@ -2,7 +2,7 @@
 <section id="allapp">
   <div class="allapp-section">
     <h1 class="text-center mt-4">Last Seven Days Appointments</h1>
-    {% for i in allapp %}
+    {% for i in allapp.items %}
     <div class="form-style seven-app mt-3 d-flex">
       <div class="d-flex flex-column justify-content-around card-content">
         <div class="d-flex flex-row justify-content-between mx-5">
@@ -47,8 +47,23 @@
         </div>
       </div>
     </div>
-    {% endfor %}
+    {% endfor %} {% for page_num in allapp.iter_pages(left_edge=1, right_edge=1,
+    left_current=1, right_current=2) %} {% if page_num %} {% if allapp.page ==
+    page_num %}
+    <a
+      class="btn pagenum_current mb-4 mt-5"
+      href="{{ url_for('allapp', page=page_num) }}"
+      >{{ page_num }}</a
+    >
+    {% else %}
+    <a
+      class="btn pagenum mb-4 mt-5"
+      href="{{ url_for('allapp', page=page_num) }}"
+      >{{ page_num }}</a
+    >
+    {% endif %} {% else %} ... {% endif %} {% endfor %}
   </div>
+  <br />
   {% include "includes/footer.html" %}
 </section>
 

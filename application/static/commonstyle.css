@@ -71,3 +71,13 @@ input:focus {
 small {
   font-size: 15px;
 }
+
+.pagenum_current {
+  background: #0c2461;
+  color: white;
+}
+
+.pagenum {
+  background: white;
+  color: #0c2461;
+}

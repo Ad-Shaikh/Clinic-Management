@@ -170,16 +170,12 @@ def newpatient():
     return redirect( url_for('login') )
 
   
-
-
-
-
-
 @app.route('/patientrecord', methods = ['GET','POST'])
 def patientrecord():
   if 'username' in session:
     if request.method == 'GET':
-      patrcd= Patient.query.all()
+      page= request.args.get('page', 1, type=int)
+      patrcd= Patient.query.paginate(page=page, per_page=10)
       return render_template("patientrecord.html",patrcd=patrcd)
     
     elif request.method == 'POST':
@@ -362,8 +358,8 @@ def viewapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
     pname=pat.pname
-    appointment= Appointments.query.filter_by(pname=pname).order_by(Appointments.date).all()
-    # app=order_by(desc(appointment))
+    page= request.args.get('page', 1, type=int)
+    appointment= Appointments.query.filter_by(pname=pname).order_by(Appointments.date).paginate(page=page, per_page=15)
     if request.method=='GET':
       return render_template('viewapp.html',appointment=appointment, pat=pat)
 
@@ -390,7 +386,8 @@ def allapp():
   if 'username' in session:
     today= datetime.date.today()
     seven_days_ago = datetime.date.today() - timedelta(days = 7)
-    allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).all()
+    page= request.args.get('page', 1, type=int)
+    allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).paginate(page=page, per_page=5)
     return render_template('allappointment.html', allapp=allapp)
   
   # return render_template('allappointments.html', allapp=allapp)

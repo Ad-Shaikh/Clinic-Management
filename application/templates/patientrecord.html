@@ -42,7 +42,7 @@
             <th scope="col">Delete</th>
           </tr>
         </thead>
-        {% for i in patrcd %}
+        {% for i in patrcd.items %}
         <tr scope="row">
           <td></td>
           <td>{{ i.pname }}</td>
@@ -84,7 +84,22 @@
         </tr>
         {% endfor %}
       </table>
-      {% endif %} {% if patient %}
+      {% for page_num in patrcd.iter_pages(left_edge=1, right_edge=1,
+      left_current=1, right_current=2) %} {% if page_num %} {% if patrcd.page ==
+      page_num %}
+      <a
+        class="btn pagenum_current mb-4"
+        href="{{ url_for('patientrecord', page=page_num) }}"
+        >{{ page_num }}</a
+      >
+      {% else %}
+      <a
+        class="btn pagenum mb-4"
+        href="{{ url_for('patientrecord', page=page_num) }}"
+        >{{ page_num }}</a
+      >
+      {% endif %} {% else %} ... {% endif %} {% endfor %} {% endif %} {% if
+      patient %}
       <table class="table" border="2" cellpadding="5px">
         <thead class="thead">
           <tr>
