@@ -2,7 +2,6 @@ alembic==1.5.4
 amqp==2.5.2
 aniso8601==8.1.1
 appdirs==1.4.4
-astroid==1.6.6
 attrs==18.1.0
 autopep8==1.5.4
 Babel==2.9.0
@@ -91,7 +90,6 @@ pycodestyle==2.6.0
 pycparser==2.20
 pycryptodome==3.10.1
 PyJWT==1.4.2
-pylint==2.6.0
 PyMySQL==0.9.3
 python-dateutil==2.8.1
 python-dotenv==0.13.0
