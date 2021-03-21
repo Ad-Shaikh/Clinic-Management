@@ -16,7 +16,6 @@
 }
 #dash {
   position: relative;
-  z-index: -2;
   top: 0px;
   height: fit-content;
   display: flex;
